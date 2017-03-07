@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apirest;
+package entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -47,7 +47,7 @@ public class Evenements implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-
+    
     public Evenements() {
     }
 

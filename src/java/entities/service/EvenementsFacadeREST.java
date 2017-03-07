@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apirest.service;
+package entities.service;
 
-import apirest.Evenements;
+import entities.Evenements;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author lucidarme
  */
 @Stateless
-@Path("apirest.evenements")
+@Path("/evenements/")
 public class EvenementsFacadeREST extends AbstractFacade<Evenements> {
 
     @PersistenceContext(unitName = "ecomPU")
