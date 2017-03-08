@@ -1,4 +1,5 @@
 # Premier sprint 6/03 - 10/03
+
 ## 6/03
   * Prise de connaissance du sujet
   * Nouvelle tentative d'installer glassfish sur eclipse
@@ -12,3 +13,11 @@
   * Premiere classe et premiers Entity Beans ...
   * Création du git du projet et premier commit
 
+## 8/03
+  * Création de l'API REST
+  * Création de jsf pour une meilleur visualisation du fonctionnement de la base de donnée
+  * Recherche sur comment mettre en lien les résultats de l'API REST et le template.
+
+## 9/03
+  * Après plusieurs heures de reflexion, première reussite de lien entre un fichier xml généré par l'API REST et le template.
+  * Modification de l'IHM pour pouvoir afficher seulement les evenements présents dans la base de donnée.

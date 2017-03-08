@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -23,6 +24,127 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        myFunction(this);
+    }
+};
+xhttp.open("GET", "rest/evenements", true);
+xhttp.send();
+
+function myFunction(xml) {
+    var xmlDoc = xml.responseXML;
+    
+
+    for(i = 0; i < xmlDoc.getElementsByTagName("name").length; i++){
+        duplicate(i);
+        var s = "product" + i;
+        document.getElementById(s).innerHTML =
+        xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue;
+    }
+
+
+    
+    console.log(xmlDoc.getElementsByTagName("name"));
+}
+
+
+function duplicate(i) {
+    /*var original = document.getElementById('event' + i);
+    var clone = original.cloneNode(true); // "deep" clone
+    clone.id = "event" + ++i; // there can only be one element with an ID
+    clone.onclick = duplicate; // event handlers are not cloned
+    original.parentNode.appendChild(clone);*/
+    var div = document.createElement('div');
+    div.id = 'event' + i;
+    div.className = "col-sm-4 col-lg-4 col-md-4";
+    var div2 = document.createElement('div');
+    div2.className = "thumbnail";
+    var img = document.createElement('img');
+    img.src="http://placehold.it/320x150";
+    img.alt="";
+    var div3 = document.createElement('div');
+    div3.className = "caption";
+    var h4_1 = document.createElement('h4');
+    h4_1.className = "pull-right";
+    h4_1.textContent = "$24.99";
+    div3.appendChild(h4_1);
+    var h4_2 = document.createElement('h4');
+    var a_1 = document.createElement('a');
+    a_1.href = "item.html";
+    a_1.id="product" + i;
+    a_1.textContent="Name";
+    h4_2.appendChild(a_1);
+    div3.appendChild(h4_2);
+    var p_1 = document.createElement('p');
+    p_1.textContent = 'Yes, it"s a generated event.'
+    div3.appendChild(p_1);
+    
+    var div4 = document.createElement('div');
+    div4.className = "ratings";
+    var p_2 = document.createElement('p');
+    p_2.className ="pull-right";
+    p_2.textContent = "15 reviews";
+    div4.appendChild(p_2);
+    var p_3 = document.createElement('p');
+    var span1 = document.createElement('span');
+    span1.className ="glyphicon glyphicon-star";
+    p_3.appendChild(span1);
+    var span2 = document.createElement('span');
+    span2.className ="glyphicon glyphicon-star";
+    p_3.appendChild(span2);
+    var span3 = document.createElement('span');
+    span3.className ="glyphicon glyphicon-star";
+    p_3.appendChild(span3);
+    var span4 = document.createElement('span');
+    span4.className ="glyphicon glyphicon-star";
+    p_3.appendChild(span4);
+    var span5 = document.createElement('span');
+    span5.className ="glyphicon glyphicon-star";
+    p_3.appendChild(span5);
+    
+    div4.appendChild(p_3);
+
+    div2.appendChild(img);
+    div2.appendChild(div3);
+    div2.appendChild(div4);
+    div.appendChild(div2);
+    var eventRoot = document.getElementById('eventsContainer');
+    eventRoot.appendChild(div);
+}
+</script>
+
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        addRow(this);
+    }
+};
+xhttp.open("GET", "rest/user", true);
+xhttp.send();
+
+function addRow(xml) {
+    var xmlDoc = xml.responseXML;
+    
+    for(i = 0; i < xmlDoc.getElementsByTagName("name").length; i++){
+        var myName = xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue;
+        var pass = xmlDoc.getElementsByTagName("password")[i].childNodes[0].nodeValue;
+        var table = document.getElementById("myTableData");
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        row.insertCell(0).innerHTML= myName;
+        row.insertCell(1).innerHTML= pass;
+    }
+    
+}
+
+</script>
+
 
 </head>
 
@@ -63,13 +185,13 @@
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+        
 
             <div class="col-md-3">
                 <p class="lead">Le Stade</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Sports</a>
-                    <a href="#" class="list-group-item">Spectacles</a>
+                    <a href="ui/user/List.xhtml" class="list-group-item">Sports</a>
+                    <a href="ui/evenements/List.xhtml" class="list-group-item">Spectacles</a>
                     <a href="#" class="list-group-item">Concerts</a>
                 </div>
             </div>
@@ -107,14 +229,14 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row" id="eventsContainer">
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
+                    <!--<div class="col-sm-4 col-lg-4 col-md-4" id="event0">
                         <div class="thumbnail">
                             <img src="http://placehold.it/320x150" alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$24.99</h4>
-                                <h4><a href="item.html">First Product</a>
+                                <h4><a href="item.html" id="product0"></a>
                                 </h4>
                                 <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                             </div>
@@ -129,102 +251,19 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$64.99</h4>
-                                <h4><a href="item.html">Second Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">12 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$74.99</h4>
-                                <h4><a href="item.html">Third Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">31 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$84.99</h4>
-                                <h4><a href="item.html">Fourth Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">6 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$94.99</h4>
-                                <h4><a href="item.html">Fifth Product</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">18 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    </div>-->
 
                 </div>
-
-            </div>
-
+                
+               <b>Current data in the system ...</b>
+                <table id="myTableData"  border="1" cellpadding="2">
+                    <tr>
+                        <td><b>Name</b></td>
+                        <td><b>password</b></td>
+                    </tr>
+                </table>
         </div>
-
+ 
     </div>
     <!-- /.container -->
 
@@ -236,7 +275,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Ecom Lucidarme 2017</p>
                 </div>
             </div>
         </footer>
