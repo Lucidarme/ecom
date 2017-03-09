@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -24,97 +23,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script>
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        myFunction(this);
-    }
-};
-xhttp.open("GET", "rest/evenements", true);
-xhttp.send();
-
-function myFunction(xml) {
-    var xmlDoc = xml.responseXML;
-    
-
-    for(i = 0; i < xmlDoc.getElementsByTagName("name").length; i++){
-        duplicate(i);
-        var s = "product" + i;
-        document.getElementById(s).innerHTML =
-        xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue;
-    }
-
-
-    
-    console.log(xmlDoc.getElementsByTagName("name"));
-}
-
-
-function duplicate(i) {
-    /*var original = document.getElementById('event' + i);
-    var clone = original.cloneNode(true); // "deep" clone
-    clone.id = "event" + ++i; // there can only be one element with an ID
-    clone.onclick = duplicate; // event handlers are not cloned
-    original.parentNode.appendChild(clone);*/
-    var div = document.createElement('div');
-    div.id = 'event' + i;
-    div.className = "col-sm-4 col-lg-4 col-md-4";
-    var div2 = document.createElement('div');
-    div2.className = "thumbnail";
-    var img = document.createElement('img');
-    img.src="http://placehold.it/320x150";
-    img.alt="";
-    var div3 = document.createElement('div');
-    div3.className = "caption";
-    var h4_1 = document.createElement('h4');
-    h4_1.className = "pull-right";
-    h4_1.textContent = "$24.99";
-    div3.appendChild(h4_1);
-    var h4_2 = document.createElement('h4');
-    var a_1 = document.createElement('a');
-    a_1.href = "item.html";
-    a_1.id="product" + i;
-    a_1.textContent="Name";
-    h4_2.appendChild(a_1);
-    div3.appendChild(h4_2);
-    var p_1 = document.createElement('p');
-    p_1.textContent = 'Yes, it"s a generated event.'
-    div3.appendChild(p_1);
-    
-    var div4 = document.createElement('div');
-    div4.className = "ratings";
-    var p_2 = document.createElement('p');
-    p_2.className ="pull-right";
-    p_2.textContent = "15 reviews";
-    div4.appendChild(p_2);
-    var p_3 = document.createElement('p');
-    var span1 = document.createElement('span');
-    span1.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span1);
-    var span2 = document.createElement('span');
-    span2.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span2);
-    var span3 = document.createElement('span');
-    span3.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span3);
-    var span4 = document.createElement('span');
-    span4.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span4);
-    var span5 = document.createElement('span');
-    span5.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span5);
-    
-    div4.appendChild(p_3);
-
-    div2.appendChild(img);
-    div2.appendChild(div3);
-    div2.appendChild(div4);
-    div.appendChild(div2);
-    var eventRoot = document.getElementById('eventsContainer');
-    eventRoot.appendChild(div);
-}
-</script>
+<script src = js/indexEvent.js></script>
 
 <script>
 var xhttp = new XMLHttpRequest();
@@ -167,10 +76,10 @@ function addRow(xml) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="index.html">About</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="index.html">Services</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -188,14 +97,20 @@ function addRow(xml) {
         
 
             <div class="col-md-3">
-                <p class="lead">Le Stade</p>
+                <p class="lead">StadeUnix</p>
                 <div class="list-group">
-                    <a href="ui/user/List.xhtml" class="list-group-item">Sports</a>
-                    <a href="ui/evenements/List.xhtml" class="list-group-item">Spectacles</a>
-                    <a href="#" class="list-group-item">Concerts</a>
+                    <a href="index.html?eventtype=sport" class="list-group-item">Sports</a>
+                    <a href="index.html?eventtype=spectacle" class="list-group-item">Spectacles</a>
+                    <a href="index.html?eventtype=concert" class="list-group-item">Concerts</a>
+                    <div class ="list-group-item">
+                        <label >Période : </label><p>(YYYY-MM-DD)</p><br/>
+                        <p>de</p>
+                        <input id="date1" type="date" value="2017-01-01"/><br />
+                        <p>à</p>
+                        <input id="date2" type="date" value="2022-01-01"/>
+                    </div>
                 </div>
             </div>
-
             <div class="col-md-9">
 
                 <div class="row carousel-holder">
@@ -231,28 +146,6 @@ function addRow(xml) {
 
                 <div class="row" id="eventsContainer">
 
-                    <!--<div class="col-sm-4 col-lg-4 col-md-4" id="event0">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$24.99</h4>
-                                <h4><a href="item.html" id="product0"></a>
-                                </h4>
-                                <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>-->
-
                 </div>
                 
                <b>Current data in the system ...</b>
@@ -275,7 +168,7 @@ function addRow(xml) {
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Ecom Lucidarme 2017</p>
+                    <p>Copyright &copy; Ecom Gangscred 2017</p>
                 </div>
             </div>
         </footer>

@@ -23,6 +23,14 @@
                     <h:outputText value="#{evenementsController.selected.date}" title="#{bundle.ViewEvenementsTitle_date}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
+                    <h:outputText value="#{bundle.ViewEvenementsLabel_imageLink}"/>
+                    <h:outputText value="#{evenementsController.selected.imageLink}" title="#{bundle.ViewEvenementsTitle_imageLink}"/>
+                    <h:outputText value="#{bundle.ViewEvenementsLabel_type}"/>
+                    <h:outputText value="#{evenementsController.selected.type}" title="#{bundle.ViewEvenementsTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewEvenementsLabel_description}"/>
+                    <h:outputText value="#{evenementsController.selected.description}" title="#{bundle.ViewEvenementsTitle_description}"/>
+                    <h:outputText value="#{bundle.ViewEvenementsLabel_price}"/>
+                    <h:outputText value="#{evenementsController.selected.price}" title="#{bundle.ViewEvenementsTitle_price}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{evenementsController.destroyAndView}" value="#{bundle.ViewEvenementsDestroyLink}"/>

@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,6 +35,24 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Evenements.findByName", query = "SELECT e FROM Evenements e WHERE e.name = :name")
     , @NamedQuery(name = "Evenements.findByDate", query = "SELECT e FROM Evenements e WHERE e.date = :date")})
 public class Evenements implements Serializable {
+
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "price")
+    private Double price;
+
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
+
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "imageLink")
+    private String imageLink;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "type")
+    private String type;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -102,6 +121,39 @@ public class Evenements implements Serializable {
     @Override
     public String toString() {
         return "apirest.Evenements[ id=" + id + " ]";
+    }
+
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
     
 }

@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author lucidarme
  */
 @Stateless
-@Path("/evenements/")
+@Path("/evenements")
 public class EvenementsFacadeREST extends AbstractFacade<Evenements> {
 
     @PersistenceContext(unitName = "ecomPU")

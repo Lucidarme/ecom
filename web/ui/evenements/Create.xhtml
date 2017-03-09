@@ -23,6 +23,14 @@
                     <h:inputText id="date" value="#{evenementsController.selected.date}" title="#{bundle.CreateEvenementsTitle_date}" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEvenementsLabel_imageLink}" for="imageLink" />
+                    <h:inputTextarea rows="4" cols="30" id="imageLink" value="#{evenementsController.selected.imageLink}" title="#{bundle.CreateEvenementsTitle_imageLink}" />
+                    <h:outputLabel value="#{bundle.CreateEvenementsLabel_type}" for="type" />
+                    <h:inputTextarea rows="4" cols="30" id="type" value="#{evenementsController.selected.type}" title="#{bundle.CreateEvenementsTitle_type}" />
+                    <h:outputLabel value="#{bundle.CreateEvenementsLabel_description}" for="description" />
+                    <h:inputTextarea rows="4" cols="30" id="description" value="#{evenementsController.selected.description}" title="#{bundle.CreateEvenementsTitle_description}" />
+                    <h:outputLabel value="#{bundle.CreateEvenementsLabel_price}" for="price" />
+                    <h:inputText id="price" value="#{evenementsController.selected.price}" title="#{bundle.CreateEvenementsTitle_price}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{evenementsController.create}" value="#{bundle.CreateEvenementsSaveLink}" />

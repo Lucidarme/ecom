@@ -24,6 +24,54 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script>
+        function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+
+                var sURLVariables = sPageURL.split('&');
+
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {                                
+                        return sParameterName[1];
+                    }
+                }
+            }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myFunction(this);
+            }
+        };
+        xhttp.open("GET", "rest/evenements/" + GetURLParameter('eventid'), true);
+        xhttp.send();
+        
+        function myFunction(xml) {
+            var xmlDoc = xml.responseXML;
+
+
+            
+                var id = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+                var imageLink = xmlDoc.getElementsByTagName("imageLink")[0].childNodes[0].nodeValue;
+                var price = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+                var description = xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+                var name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                var date = xmlDoc.getElementsByTagName("date")[0].childNodes[0].nodeValue;
+
+                document.getElementById("productName").innerHTML = name;
+                document.getElementById("description").innerHTML = description;
+                document.getElementById("price").innerHTML = price + "€";
+                document.getElementById("imageLink").src = imageLink;
+
+            
+
+        }
+        
+    </script>
 </head>
 
 <body>
@@ -66,7 +114,7 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Shop Name</p>
+                <p class="lead" >Shop Name</p>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Category 1</a>
                     <a href="#" class="list-group-item">Category 2</a>
@@ -77,16 +125,12 @@
             <div class="col-md-9">
 
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+                    <img class="img-responsive" id="imageLink" src="http://placehold.it/800x300" alt="">
                     <div class="caption-full">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4><a href="#">Product Name</a>
+                        <h4 class="pull-right" id="price">$24.99</h4>
+                        <h4><a href="#" id="productName">Product Name</a>
                         </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                     </div>
                     <div class="ratings">
                         <p class="pull-right">3 reviews</p>
@@ -157,7 +201,6 @@
             </div>
 
         </div>
-
     </div>
     <!-- /.container -->
 
@@ -169,7 +212,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Ecom Gangscred 2017</p>
                 </div>
             </div>
         </footer>
