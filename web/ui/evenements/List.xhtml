@@ -34,18 +34,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEvenementsTitle_date}"/>
+                                <h:outputText value="#{bundle.ListEvenementsTitle_price}"/>
                             </f:facet>
-                            <h:outputText value="#{item.date}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEvenementsTitle_imageLink}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.imageLink}"/>
+                            <h:outputText value="#{item.price}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -55,17 +46,24 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEvenementsTitle_imageLink}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.imageLink}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvenementsTitle_description}"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEvenementsTitle_price}"/>
+                                <h:outputText value="#{bundle.ListEvenementsTitle_date}"/>
                             </f:facet>
-                            <h:outputText value="#{item.price}"/>
+                            <h:outputText value="#{item.date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </h:column>
-                        
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>

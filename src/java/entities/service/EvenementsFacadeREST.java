@@ -62,6 +62,7 @@ public class EvenementsFacadeREST extends AbstractFacade<Evenements> {
         return super.find(id);
     }
 
+
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

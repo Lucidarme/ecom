@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,26 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Evenements.findAll", query = "SELECT e FROM Evenements e")
     , @NamedQuery(name = "Evenements.findById", query = "SELECT e FROM Evenements e WHERE e.id = :id")
     , @NamedQuery(name = "Evenements.findByName", query = "SELECT e FROM Evenements e WHERE e.name = :name")
+    , @NamedQuery(name = "Evenements.findByPrice", query = "SELECT e FROM Evenements e WHERE e.price = :price")
+    , @NamedQuery(name = "Evenements.findByType", query = "SELECT e FROM Evenements e WHERE e.type = :type")
     , @NamedQuery(name = "Evenements.findByDate", query = "SELECT e FROM Evenements e WHERE e.date = :date")})
 public class Evenements implements Serializable {
-
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
-    private Double price;
-
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "description")
-    private String description;
-
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "imageLink")
-    private String imageLink;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "type")
-    private String type;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +48,45 @@ public class Evenements implements Serializable {
     @Size(max = 40)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "price")
+    private String price;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "type")
+    private String type;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "imageLink")
+    private String imageLink;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "description")
+    private String description;
     @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date;
-    
+
     public Evenements() {
     }
 
     public Evenements(Short id) {
         this.id = id;
+    }
+
+    public Evenements(Short id, String price, String type, String imageLink, String description) {
+        this.id = id;
+        this.price = price;
+        this.type = type;
+        this.imageLink = imageLink;
+        this.description = description;
     }
 
     public Short getId() {
@@ -88,6 +103,38 @@ public class Evenements implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDate() {
@@ -120,40 +167,7 @@ public class Evenements implements Serializable {
 
     @Override
     public String toString() {
-        return "apirest.Evenements[ id=" + id + " ]";
-    }
-
-
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+        return "entities.Evenements[ id=" + id + " ]";
     }
     
 }

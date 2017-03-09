@@ -9,31 +9,42 @@ xhttp.send();
 
 function myFunction(xml) {
     var xmlDoc = xml.responseXML;
+    var eventtype = GetURLParameter('eventtype');
+    if(eventtype === "")
+        document.getElementById("all").className = "list-group-item active";
+    else
+        document.getElementById(eventtype).className = "list-group-item active";
     
+    document.getElementById('eventsContainer').innerHTML ="";
+    
+    var date1 = new Date(document.getElementById("date1").value);
+    var date2 = new Date(document.getElementById("date2").value);
+    for(i = 0; i < xmlDoc.getElementsByTagName("id").length; i++){
+        
+        var eventdate = new Date(xmlDoc.getElementsByTagName("date")[i].childNodes[0].nodeValue);
+        
+        if((eventtype==="" 
+            || eventtype === xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue)
+            && date1 <= eventdate 
+            && eventdate <= date2){
 
-    for(i = 0; i < xmlDoc.getElementsByTagName("name").length; i++){
-        duplicate(i,
-                xmlDoc.getElementsByTagName("id")[i].childNodes[0].nodeValue,
-                xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue,
-                xmlDoc.getElementsByTagName("imageLink")[i].childNodes[0].nodeValue,
-                xmlDoc.getElementsByTagName("price")[i].childNodes[0].nodeValue,
-                xmlDoc.getElementsByTagName("description")[i].childNodes[0].nodeValue
-                );
-        /*var s = "product" + i;
-        document.getElementById(s).innerHTML =
-        xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue;*/
-
+        
+            duplicate(i,
+                    xmlDoc.getElementsByTagName("id")[i].childNodes[0].nodeValue,
+                    xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue,
+                    xmlDoc.getElementsByTagName("imageLink")[i].childNodes[0].nodeValue,
+                    xmlDoc.getElementsByTagName("price")[i].childNodes[0].nodeValue,
+                    xmlDoc.getElementsByTagName("description")[i].childNodes[0].nodeValue,
+                    "le " + eventdate.toISOString().substring(0, 16).replace(/T/g," à ") + "h"
+                    );
+            }
     }
 
 }
 
 
-function duplicate(i, id, name, imageLink, price, description) {
-    /*var original = document.getElementById('event' + i);
-    var clone = original.cloneNode(true); // "deep" clone
-    clone.id = "event" + ++i; // there can only be one element with an ID
-    clone.onclick = duplicate; // event handlers are not cloned
-    original.parentNode.appendChild(clone);*/
+function duplicate(i, id, name, imageLink, price, description, date) {
+
     var div = document.createElement('div');
     div.id = 'event' + i;
     div.className = "col-sm-4 col-lg-4 col-md-4";
@@ -46,10 +57,8 @@ function duplicate(i, id, name, imageLink, price, description) {
     div3.className = "caption";
     var h4_1 = document.createElement('h4');
     h4_1.className = "pull-right";
-    if(price === "0.0")
-        h4_1.textContent = "Gratuit";
-    else
-        h4_1.textContent = price + "€";
+
+    h4_1.textContent = price;
     div3.appendChild(h4_1);
     var h4_2 = document.createElement('h4');
     var a_1 = document.createElement('a');
@@ -61,6 +70,9 @@ function duplicate(i, id, name, imageLink, price, description) {
     var p_1 = document.createElement('p');
     p_1.textContent = description;
     div3.appendChild(p_1);
+    var p_4 = document.createElement('p');
+    p_4.textContent = date;
+    div3.appendChild(p_4);
     
     var div4 = document.createElement('div');
     div4.className = "ratings";
@@ -93,4 +105,17 @@ function duplicate(i, id, name, imageLink, price, description) {
     div.appendChild(div2);
     var eventRoot = document.getElementById('eventsContainer');
     eventRoot.appendChild(div);
+}
+function GetURLParameter(sParam){
+        var sPageURL = window.location.search.substring(1);
+
+        var sURLVariables = sPageURL.split('&');
+
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {                                
+                return sParameterName[1];
+            }
+        }
+        return "";
 }

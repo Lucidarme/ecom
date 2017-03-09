@@ -24,54 +24,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script>
-        function GetURLParameter(sParam)
-            {
-                var sPageURL = window.location.search.substring(1);
-
-                var sURLVariables = sPageURL.split('&');
-
-                for (var i = 0; i < sURLVariables.length; i++) 
-                {
-                    var sParameterName = sURLVariables[i].split('=');
-                    if (sParameterName[0] == sParam) 
-                    {                                
-                        return sParameterName[1];
-                    }
-                }
-            }
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myFunction(this);
-            }
-        };
-        xhttp.open("GET", "rest/evenements/" + GetURLParameter('eventid'), true);
-        xhttp.send();
-        
-        function myFunction(xml) {
-            var xmlDoc = xml.responseXML;
-
-
-            
-                var id = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-                var imageLink = xmlDoc.getElementsByTagName("imageLink")[0].childNodes[0].nodeValue;
-                var price = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
-                var description = xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
-                var name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-                var date = xmlDoc.getElementsByTagName("date")[0].childNodes[0].nodeValue;
-
-                document.getElementById("productName").innerHTML = name;
-                document.getElementById("description").innerHTML = description;
-                document.getElementById("price").innerHTML = price + "€";
-                document.getElementById("imageLink").src = imageLink;
-
-            
-
-        }
-        
-    </script>
+    <script src="js/itemSetup.js"></script>
+    
 </head>
 
 <body>
@@ -114,11 +68,11 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead" >Shop Name</p>
+                <p class="lead" >StadeUnix</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                    <p id="info1" class="list-group-item">Category 1</p>
+                    <p id="info2" class="list-group-item">Category 2</p>
+                    <p id="info3" class="list-group-item">Category 3</p>
                 </div>
             </div>
 
@@ -147,54 +101,47 @@
 
                 <div class="well">
 
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label> <font size="6">Quantité</font> </label>
+                            <input class="pull-right" type="number" name="quantity" min="1" max="10">
+                            <p>(10 places maximum)</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label> <font size="6">Placement tribune d'honneur</font> </label>
+                            <input class="pull-right" type="checkbox" id="cbox3" value="checkbox1">
+                            <p>Ce placement à un cout de 25€</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label> <font size="6">Placement dans les virages</font> </label>
+                            <input class="pull-right" type="checkbox" id="cbox2" value="checkbox1">
+                            <p>Ce placement à un cout de 20€</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <label> <font size="6">Placement derrière les buts</font> </label>
+                            <input class="pull-right" type="checkbox" id="cbox1" value="checkbox1">
+                            <p>Ce placement à un cout de 15€</p>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="text-right">
-                        <a class="btn btn-success">Leave a Review</a>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">10 days ago</span>
-                            <p>This product was great in terms of quality. I would definitely buy another!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">12 days ago</span>
-                            <p>I've alredy ordered another one!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">15 days ago</span>
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                        </div>
-                    </div>
+                        <a id="saveCommand" class="btn btn-success">Réserver</a>
 
                 </div>
 
