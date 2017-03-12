@@ -21,3 +21,28 @@
 ## 9/03
   * Après plusieurs heures de reflexion, première reussite de lien entre un fichier xml généré par l'API REST et le template.
   * Modification de l'IHM pour pouvoir afficher seulement les evenements présents dans la base de donnée.
+  * Ajout de script javascript pour afficher seulement les evenements qui interessent l'utilisateur, suivant la catégorie ou la période désiré
+  
+## 10/03
+  * Installation de Swagger
+  * Mise en place de l'IHM de swagger
+  * Tentative de connection entre swagger et mes session beans mais echec
+  * Création d'un droplet sur Digital Ocean
+  * Installation de Docker sur ce dernier
+  * Installation et configuration de InfluxDB et Grafana, cependant ces derniers ne sont pas encore dans des conteneurs
+  * Premiere visualisation de donnée sur Grafana après la création d'une base de donnée test sur influxDB
+  * Installation de Telegraf
+  * Tentative de mettre Telegraf dans un docker mais echec.
+
+## 11/03
+  * Documentation plus poussé sur Docker, Telegraf et InfluxDB afin de comprendre l'echec d'hier
+  * Supression de InfluxDB et Grafana dans le but d'invoquer des images docker directement
+  * Creation de container dans lesquels tournent les images InfluxDB et Grafana
+  * Mise en relation de ces deux images afin d'afficher les données contenue dans InfluxDB dans Grafana
+  * Creation de container dans lequel tourne Telegraf
+  * Configuration de Telegraf
+  * Test de Telegraf avec InfluxDB -> Réussite ! 
+  * Affichage des données transmise par Telegraf à InfluxDB dans Grafana
+  * Creation d'un container dans lequel tourne l'image Glassfish
+  * Configuration des ports pour pouvoir acceder à Glassfish depuis l'exterieur
+
