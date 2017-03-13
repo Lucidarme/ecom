@@ -46,3 +46,11 @@
   * Creation d'un container dans lequel tourne l'image Glassfish
   * Configuration des ports pour pouvoir acceder à Glassfish depuis l'exterieur
 
+## 12/03
+  * Creation des pages de connection, d'inscription et mise en relation avec la base de donnée
+  * Création de l'espace dédié aux annonceurs avec la possibilité de visualiser ses propres evenements
+  * Création de l'espace dédié aux administrateur avec la possibilité de visualiser les evenements qui n'ont pas encore été validé
+  * Création de la page newEvent.html qui permet à un annonceur de creer un nouvel evenement.
+  * Création de la page validEvent.html qui permet à un administrateur de valider, et modifier, un evenement proposé.
+  * Modification de l'API Rest et apparition des methodes POST et PUT.
+
