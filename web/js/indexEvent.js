@@ -4,12 +4,18 @@ xhttp.onreadystatechange = function() {
         myFunction(this);
     }
 };
-xhttp.open("GET", "rest/evenements", true);
+var eventtype = GetURLParameter('eventtype');
+var url;
+if(eventtype === "")
+    url = "rest/evenements";
+else
+    url = "rest/evenements/type/" + eventtype;
+
+xhttp.open("GET", url, true);
 xhttp.send();
 
 function myFunction(xml) {
     var xmlDoc = xml.responseXML;
-    var eventtype = GetURLParameter('eventtype');
     if(eventtype === "")
         document.getElementById("all").className = "list-group-item active";
     else
@@ -22,11 +28,9 @@ function myFunction(xml) {
     for(i = 0; i < xmlDoc.getElementsByTagName("id").length; i++){
         
         var eventdate = new Date(xmlDoc.getElementsByTagName("date")[i].childNodes[0].nodeValue);
-        
-        if((eventtype==="" 
-            || eventtype === xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue)
-            && date1 <= eventdate 
-            && eventdate <= date2){
+        var isvalid = xmlDoc.getElementsByTagName("isvalid")[i].childNodes[0].nodeValue;
+        if( date1 <= eventdate 
+            && eventdate <= date2 && isvalid === "true"){
 
         
             duplicate(i,
@@ -70,29 +74,16 @@ function duplicate(i, id, name, imageLink, price, description, date) {
     var p_1 = document.createElement('p');
     p_1.textContent = description;
     div3.appendChild(p_1);
-    var p_4 = document.createElement('p');
-    p_4.textContent = date;
-    div3.appendChild(p_4);
+
     
     var div4 = document.createElement('div');
     div4.className = "ratings";
     var p_2 = document.createElement('p');
     p_2.className ="pull-right";
-    p_2.textContent = "15 reviews";
+    p_2.textContent = date;
     div4.appendChild(p_2);
     var p_3 = document.createElement('p');
-    var span1 = document.createElement('span');
-    span1.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span1);
-    var span2 = document.createElement('span');
-    span2.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span2);
-    var span3 = document.createElement('span');
-    span3.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span3);
-    var span4 = document.createElement('span');
-    span4.className ="glyphicon glyphicon-star";
-    p_3.appendChild(span4);
+
     var span5 = document.createElement('span');
     span5.className ="glyphicon glyphicon-star";
     p_3.appendChild(span5);

@@ -6,12 +6,15 @@
 package com.lucidarme.api.entities.service;
 
 import com.lucidarme.api.entities.Evenements;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -26,67 +29,71 @@ import javax.ws.rs.core.MediaType;
  */
 @Stateless
 @Path("/evenements")
-public class EvenementsFacadeREST extends AbstractFacade<Evenements> {
+@Produces("application/xml")
+public class EvenementsFacadeREST {
 
-    @PersistenceContext(unitName = "ecomPU")
-    private EntityManager em;
-
-    public EvenementsFacadeREST() {
-        super(Evenements.class);
+    @GET
+    public List<Evenements> getEvenements() {
+        return new GestionBD().getEvenements();
+    
     }
-
+    
+    @GET
+    @Path("/{id}")
+    public Evenements getEvenementById(@PathParam("id") int ID){
+        return new GestionBD().getEvenementById(ID);
+    }
+    
+    @GET
+    @Path("/type/{type}")
+    public List<Evenements> getEvenementsByType(@PathParam("type") String type){
+        return new GestionBD().getEvenementsByType(type);
+    }
+    
+    @GET
+    @Path("/owner={owner}")
+    public List<Evenements> getEvenementsByOwner(@PathParam("owner") int owner){
+        return new GestionBD().getEvenementsByOwner(owner);
+    }
+    
+    @GET
+    @Path("/isvalid={isvalid}")
+    public List<Evenements> getEvenementsByIsValid(@PathParam("isvalid") boolean isvalid){
+        return new GestionBD().getEvenementsByIsvalid(isvalid);
+    }
+    
     @POST
-    @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Evenements entity) {
-        super.create(entity);
+    @Produces(MediaType.TEXT_HTML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void createEvenement(@FormParam("name") String name, @FormParam("price") String price, 
+                            @FormParam("type") String type, @FormParam("imageLink") String imageLink,
+                            @FormParam("description") String description, @FormParam("date") String date,
+                            @FormParam("owner") int owner, @FormParam("isvalid") Boolean isvalid){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date date_finale = new Date();
+            try {
+                date_finale = (Date)formatter.parse(date);
+            }catch(Exception e){e.printStackTrace();}
+        Evenements evenement = new Evenements(name, price, type, imageLink, description,date_finale,owner,isvalid);
+        new GestionBD().createEvenement(evenement);
     }
-
+    
     @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Short id, Evenements entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Short id) {
-        super.remove(super.find(id));
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Evenements find(@PathParam("id") Short id) {
-        return super.find(id);
-    }
-
-
-    @GET
-    @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Evenements> findAll() {
-        return super.findAll();
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Evenements> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    @Path("/modify/eventid={eventid}")
+    @Produces(MediaType.TEXT_HTML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void modifyEvenement(@PathParam("eventid") int eventid,
+                            @FormParam("name") String name, @FormParam("price") String price, 
+                            @FormParam("type") String type, @FormParam("imageLink") String imageLink,
+                            @FormParam("description") String description, @FormParam("date") String date,
+                            @FormParam("owner") int owner, @FormParam("isvalid") Boolean isvalid){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date date_finale = new Date();
+            try {
+                date_finale = (Date)formatter.parse(date);
+            }catch(Exception e){e.printStackTrace();}
+        Evenements evenement = new Evenements(name, price, type, imageLink, description,date_finale,owner,isvalid);
+        new GestionBD().modifyEvenementById(eventid, evenement);
     }
     
 }

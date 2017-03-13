@@ -28,51 +28,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author lucidarme
  */
 @Entity
-@Table(name = "evenements")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Evenements.findAll", query = "SELECT e FROM Evenements e")
-    , @NamedQuery(name = "Evenements.findById", query = "SELECT e FROM Evenements e WHERE e.id = :id")
-    , @NamedQuery(name = "Evenements.findByName", query = "SELECT e FROM Evenements e WHERE e.name = :name")
-    , @NamedQuery(name = "Evenements.findByPrice", query = "SELECT e FROM Evenements e WHERE e.price = :price")
-    , @NamedQuery(name = "Evenements.findByType", query = "SELECT e FROM Evenements e WHERE e.type = :type")
-    , @NamedQuery(name = "Evenements.findByDate", query = "SELECT e FROM Evenements e WHERE e.date = :date")})
+@XmlRootElement(name = "evenements")
+
 public class Evenements implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Short id;
-    @Size(max = 40)
-    @Column(name = "name")
+    
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "price")
+    
     private String price;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "type")
+
     private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "imageLink")
+
     private String imageLink;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "description")
+
     private String description;
-    @Column(name = "date")
-    @Temporal(TemporalType.DATE)
+
     private Date date;
+    
+    private int owner;
+    
+    private boolean isvalid;
 
     public Evenements() {
     }
@@ -81,12 +60,15 @@ public class Evenements implements Serializable {
         this.id = id;
     }
 
-    public Evenements(Short id, String price, String type, String imageLink, String description) {
-        this.id = id;
+    public Evenements(String name, String price, String type, String imageLink, String description, Date date, int owner, Boolean isvalid) {
+        this.name = name;
         this.price = price;
         this.type = type;
         this.imageLink = imageLink;
         this.description = description;
+        this.date = date;
+        this.owner = owner;
+        this.isvalid = isvalid;
     }
 
     public Short getId() {
@@ -145,6 +127,22 @@ public class Evenements implements Serializable {
         this.date = date;
     }
 
+    public int getOwner(){
+        return owner;
+    }
+    
+    public void setOwner(int owner){
+        this.owner = owner;
+    }
+    
+    public boolean getIsvalid(){
+        return isvalid;
+    }
+    
+    public void setIsvalid(boolean isvalid){
+        this.isvalid = isvalid;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -23,31 +23,35 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author lucidarme
  */
 @Entity
-@Table(name = "user")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+@XmlRootElement(name = "user")
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Short id;
-    @Size(max = 40)
-    @Column(name = "name")
+
     private String name;
-    @Size(max = 40)
-    @Column(name = "password")
+
     private String password;
+    
+    private String role;
+    
+    private String email;
+    
+    private String adress;
 
     public User() {
     }
 
+    public User(String name, String password, String role, String email, String adress){
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+        this.adress = adress;
+    }
+    
     public User(Short id) {
         this.id = id;
     }
@@ -76,6 +80,30 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getRole(){
+        return role;
+    }
+    
+    public void setRole(String role){
+        this.role = role;
+    }
+    
+    public String getEmail(){
+        return email;
+    }
+    
+    public void setEmail(String email){
+        this.email = email;
+    }
+    
+    public String getAdress(){
+        return adress;
+    }
+    
+    public void setAdress(String adress){
+        this.adress = adress;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
